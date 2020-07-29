@@ -1,6 +1,4 @@
 import sys
-print (sys.version)
-print (sys.version_info)
 
 import subprocess
 ROOT_DIR = "/home/bryan/a_workspace/"
@@ -27,7 +25,6 @@ def make_directory(student_list):
 	this_list = student_list
 	for student in this_list:
 		location = STUDENT_DIR+student[1]
-		subprocess.call(["mkdir", location])
 		workbook_location = location+"/Workbook/Individual"
 		formative_location = location+"/Formative Assessments/Individual"
 		summative_location = location+"/Summative Assessments/Individual"
