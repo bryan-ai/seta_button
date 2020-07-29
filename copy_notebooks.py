@@ -29,7 +29,7 @@ def read_names():
 
 ''' here we read numbers, names, and evidence type into a usable list'''
 def read_tests():
-	test_name_file = open("48872 Students and Test(2019) - evidence items.csv", "r")
+	test_name_file = open(WORKING_DIR + "48872 Students and Test(2019) - evidence items.csv", "r")
 	lines = test_name_file.readlines()
 	test_list = []
 	for line in lines:

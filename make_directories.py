@@ -24,9 +24,6 @@ def read_names():
 	name_file.close()
 
 def make_directory(student_list):
-
-	mkdir_student_string = "mkdir -p "+WORKING_DIR+"Student Documents"
-	subprocess.call(mkdir_student_string, shell=True)
 	this_list = student_list
 	for student in this_list:
 		location = STUDENT_DIR+student[1]
