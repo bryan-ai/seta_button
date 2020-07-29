@@ -28,7 +28,7 @@ def make_directory(student_list):
 		workbook_location = location+"/Workbook/Individual"
 		formative_location = location+"/Formative Assessments/Individual"
 		summative_location = location+"/Summative Assessments/Individual"
-		feedback_location = location+"/Feedback/Individual"
+		feedback_location = location+"/Sprint Feedback/Individual"
 		portfolio_location = location+"/Portfolio Document/Individual"
 		subprocess.call(["mkdir","-p", workbook_location])
 		subprocess.call(["mkdir","-p", formative_location])
