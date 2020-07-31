@@ -15,8 +15,11 @@ def txt_to_ipynb(report_string):
 	return header_string + report_string + footer_string
 
 try:
-	report = open("test.txt", "r")
+	report = open("test/327_1049.txt", "r")
 	lines = report.readlines()
+
+	print(lines[-7].split(" ")[2][1:-1]+"%")
+
 	json_format = json.dumps(lines)
 	# print(json_format)
 	ipynb = txt_to_ipynb(str(json_format))
