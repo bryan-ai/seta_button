@@ -58,7 +58,7 @@ def set_directories(student):
 
 ''' Here build a ipynb of the report card'''
 def txt_to_ipynb(report_string, student, test, mark):
-	header_string = '{"cells": [{"cell_type": "markdown","metadata": {},"source": ["# Student Name: {{name}} \\n","# Test Name: {{test}}\\n","# Test Mark: {{mark}}"]},{"cell_type": "raw","metadata": {},"source": '
+	header_string = '{"cells": [{"cell_type": "markdown","metadata": {},"source": ["# Student Name: {{name}} \\n","# Test Name: {{test}}\\n","# Test Mark: {{mark}}"]},{"cell_type": "code","execution_count": null,"metadata": {},"outputs": [],"source": '
 	header_string = header_string.replace("{{name}}", student)
 	header_string = header_string.replace("{{test}}", test)
 	header_string = header_string.replace("{{mark}}", mark)
@@ -139,11 +139,35 @@ def make_documents(student, test_list, directories):
 			# print("printing to log_file")
 			log_string = log_string + str(e) + "\n" + filename + "\n"
 
-		nbmerge_string = "nbmerge -o " + "\""+WORKING_DIR+REST_DIR+INDIVIDUAL_DIR+filename+".ipynb\" " + MERGE_DIR+"*.ipynb"
+		FINAL_DIR = WORKING_DIR+REST_DIR+INDIVIDUAL_DIR+filename
+
+		''' Merge submission and Report Card to same ipynb '''
+		nbmerge_string = "nbmerge -o " + "\""+FINAL_DIR+".ipynb\" " + MERGE_DIR+"*.ipynb"
 		# print("merge_string", nbmerge_string)
 		subprocess.call(nbmerge_string, shell=True)
-		# input("files merged to Individual. Press enter to remove temp")
+		# input("files merged to Individual. Press enter convert to html")
+
+		''' Convert ipynb to HTML '''
+		nbconvert_string = "jupyter-nbconvert --to html " + "\""+FINAL_DIR+".ipynb\" "
+		# print("nbconvert_string", nbconvert_string)
+		subprocess.call(nbconvert_string, shell=True)
+		# input("file converted to html. Press enter to convert to pdf")
+
+		''' Convert HTML to pdf '''
+		wkhtmltopdf_flag_string = "-q -s A4 --print-media-type --disable-smart-shrinking --margin-top 15mm --margin-bottom 15mm --margin-left 0 --margin-right 0 "
+		wkhtmltopdf_string = "wkhtmltopdf " + wkhtmltopdf_flag_string + "\""+FINAL_DIR+".html\" " + "\""+FINAL_DIR+".pdf\" "
+		# print("wkhtmltopdf_string", wkhtmltopdf_string)
+		subprocess.call(wkhtmltopdf_string, shell=True)
+		# input("file converted to pdf. Press enter to remove temp")
+
 		subprocess.call(["rm", "-rf", TEMP_DIR])
+
+		remove_notebook_string = "rm "+"\""+FINAL_DIR+".ipynb\""
+		subprocess.call(remove_notebook_string, shell=True)
+
+		remove_html_string = "rm "+"\""+FINAL_DIR+".html\""
+		subprocess.call(remove_html_string, shell=True)
+
 
 	# Capture to logs any issues
 	try:
