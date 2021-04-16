@@ -15,7 +15,6 @@ def txt_to_ipynb(report_string):
 	return header_string + report_string + footer_string
 
 try:
-    
 	report = open("test/327_1049.txt", "r")
 	lines = report.readlines()
 
