@@ -1,4 +1,4 @@
 *.txt
 *.ipynb
 */test
-*/.ipynb_checpoints
+*/.ipynb_checkpoints
